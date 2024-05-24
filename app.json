@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "HelloWorld",
-    "slug": "expo-template-default",
+    "name": "Chunky Crayon",
+    "slug": "chunky-crayon",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -13,13 +13,15 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ezeikel.chunkycrayon"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.ezeikel.chunkycrayon"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +33,18 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b57fff00-94cc-43fb-9224-924e34d301c9"
+      }
+    },
+    "owner": "ezeikel",
+    "updates": {
+      "url": "https://u.expo.dev/b57fff00-94cc-43fb-9224-924e34d301c9"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
