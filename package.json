@@ -1,15 +1,15 @@
 {
   "name": "chunky-crayon",
+  "version": "0.0.1",
   "main": "expo-router/entry",
-  "version": "51.0.24",
   "scripts": {
     "start": "expo start",
-    "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "ts:check": "tsc"
   },
   "jest": {
     "preset": "jest-expo"
