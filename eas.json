@@ -11,7 +11,8 @@
       },
       "ios": {
         "image": "latest"
-      }
+      },
+      "bun": "1.0.21"
     },
     "development-simulator": {
       "extends": "development",
