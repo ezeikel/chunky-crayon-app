@@ -29,8 +29,6 @@ const ColoringImages = () => {
 
   const numColumns = getNumColumns();
 
-  console.log(coloringImages);
-
   return (
     <FlashList
       data={coloringImages}
