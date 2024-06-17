@@ -1,4 +1,4 @@
-import { Text, View, useWindowDimensions } from "react-native";
+import { Text, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import tw from "twrnc";
 import ColorPalette from "@/components/ColorPalette/ColorPalette";
@@ -8,7 +8,6 @@ import useColoringImage from "@/hooks/api/useColoringImage";
 const ColoringImage = () => {
   const { id } = useLocalSearchParams();
   const { data, isLoading } = useColoringImage(id as string);
-  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
 
   if (isLoading) {
     return <Text>Loading...</Text>;
