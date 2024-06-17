@@ -50,8 +50,8 @@ const ColoringImages = () => {
         )}
       >
         <SvgUri
-          width={squareSize - 20}
-          height={squareSize - 20}
+          width={squareSize}
+          height={squareSize}
           uri={svgUri}
           viewBox="0 0 1024 1024"
         />

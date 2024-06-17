@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import * as Sentry from "@sentry/react-native";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Providers from "@/providers";
 
 Sentry.init({
   dsn: "https://3ced8899cf0a5a8dd3b15c539379d654:590a9050ad3be778d873c840cb48012c@o358156.ingest.us.sentry.io/4507397854330880",
@@ -11,15 +11,13 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-const queryClient = new QueryClient();
-
 const RootLayout = () => {
   return (
-    <QueryClientProvider client={queryClient}>
+    <Providers>
       <Stack>
         <Stack.Screen name="index" />
       </Stack>
-    </QueryClientProvider>
+    </Providers>
   );
 };
 
