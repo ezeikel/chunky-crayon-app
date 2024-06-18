@@ -1,3 +1,5 @@
+import { SkPath } from "@shopify/react-native-skia";
+
 export type ColoringImage = {
   id: string;
   title: string;
@@ -9,4 +11,14 @@ export type ColoringImage = {
   tags: string[];
   createdAt: string;
   updatedAt: string;
+};
+
+export type DrawingPath = {
+  path: SkPath;
+  color: string;
+};
+
+export type Dimension = {
+  width: number;
+  height: number;
 };

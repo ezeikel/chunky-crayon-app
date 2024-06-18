@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   GestureResponderEvent,
   PanResponder,
@@ -18,16 +18,11 @@ import {
   Path,
 } from "@shopify/react-native-skia";
 import tw from "twrnc";
-import { ColoringImage } from "@/types";
+import { ColoringImage, Dimension, DrawingPath } from "@/types";
 import { useColoringContext } from "@/contexts/coloring";
 
 type ImageCanvasProps = {
   coloringimage: ColoringImage;
-};
-
-type DrawingPath = {
-  path: SkPath;
-  color: string;
 };
 
 const ImageCanvas = ({ coloringimage }: ImageCanvasProps) => {
@@ -38,10 +33,22 @@ const ImageCanvas = ({ coloringimage }: ImageCanvasProps) => {
   const { width: screenWidth } = useWindowDimensions();
   const svg = useSVG(coloringimage.svgUrl);
 
+  const [svgDimensions, setSvgDimensions] = useState<Dimension | null>(null);
+
+  useEffect(() => {
+    if (svg) {
+      setSvgDimensions({ width: svg.width(), height: svg.height() });
+    }
+  }, [svg]);
+
   const canvasSize = screenWidth;
 
-  const src = rect(0, 0, svg?.width() ?? 0, svg?.height() ?? 0);
+  const src = svgDimensions
+    ? rect(0, 0, svgDimensions.width, svgDimensions.height)
+    : rect(0, 0, 1024, 1024);
   const dst = rect(0, 0, canvasSize, canvasSize);
+
+  const transform = useMemo(() => fitbox("contain", src, dst), [src, dst]);
 
   // taking into account the padding of the parent View (8px on each side)
   const canvasSizeWithPadding = canvasSize - 16;
@@ -73,6 +80,11 @@ const ImageCanvas = ({ coloringimage }: ImageCanvasProps) => {
     },
   });
 
+  if (!svgDimensions) {
+    // render a loading state or nothing until SVG dimensions are available
+    return null;
+  }
+
   return (
     <View
       style={tw.style(`bg-white rounded-lg shadow-lg`, {
@@ -81,7 +93,7 @@ const ImageCanvas = ({ coloringimage }: ImageCanvasProps) => {
       })}
       {...panResponder.panHandlers}
     >
-      {svg && (
+      {svg ? (
         <Canvas
           ref={canvasRef}
           style={tw.style({
@@ -90,7 +102,34 @@ const ImageCanvas = ({ coloringimage }: ImageCanvasProps) => {
           })}
         >
           {/* render SVG once to be below the colored paths */}
-          <Group transform={fitbox("contain", src, dst)}>
+          <Group
+            transform={transform}
+            layer={
+              <>
+                {paths.map((drawingPath, index) => (
+                  <Path
+                    key={index}
+                    path={drawingPath.path}
+                    color={drawingPath.color}
+                    style="stroke"
+                    strokeWidth={5}
+                    strokeCap="round"
+                    strokeJoin="round"
+                  />
+                ))}
+                {currentPath ? (
+                  <Path
+                    path={currentPath}
+                    color={selectedColor}
+                    style="stroke"
+                    strokeWidth={5}
+                    strokeCap="round"
+                    strokeJoin="round"
+                  />
+                ) : null}
+              </>
+            }
+          >
             <ImageSVG
               x={0}
               y={0}
@@ -98,30 +137,9 @@ const ImageCanvas = ({ coloringimage }: ImageCanvasProps) => {
               height={canvasSize}
               svg={svg}
             />
-            {paths.map((drawingPath, index) => (
-              <Path
-                key={index}
-                path={drawingPath.path}
-                color={drawingPath.color}
-                style="stroke"
-                strokeWidth={5}
-                strokeCap="round"
-                strokeJoin="round"
-              />
-            ))}
-            {currentPath && (
-              <Path
-                path={currentPath}
-                color={selectedColor}
-                style="stroke"
-                strokeWidth={5}
-                strokeCap="round"
-                strokeJoin="round"
-              />
-            )}
           </Group>
           {/* render SVG again to be on top of the colored paths */}
-          <Group transform={fitbox("contain", src, dst)}>
+          <Group transform={transform}>
             <ImageSVG
               x={0}
               y={0}
@@ -131,7 +149,7 @@ const ImageCanvas = ({ coloringimage }: ImageCanvasProps) => {
             />
           </Group>
         </Canvas>
-      )}
+      ) : null}
     </View>
   );
 };
