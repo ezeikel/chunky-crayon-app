@@ -4,6 +4,7 @@ import tw from "twrnc";
 import ColorPalette from "@/components/ColorPalette/ColorPalette";
 import ImageCanvas from "@/components/ImageCanvas/ImageCanvas";
 import useColoringImage from "@/hooks/api/useColoringImage";
+import SaveButton from "@/components/buttons/SaveButton/SaveButton";
 
 const ColoringImage = () => {
   const { id } = useLocalSearchParams();
@@ -32,7 +33,8 @@ const ColoringImage = () => {
         </View>
         <View style={tw`flex-3 w-full border-0 border-red-800`}>
           <ColorPalette style={tw`mb-4`} />
-          <ImageCanvas coloringimage={coloringImage} />
+          <ImageCanvas coloringImage={coloringImage} style={tw`mb-4`} />
+          <SaveButton coloringImage={coloringImage} />
         </View>
       </View>
     </View>

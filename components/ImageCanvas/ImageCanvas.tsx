@@ -22,16 +22,17 @@ import { ColoringImage, Dimension, DrawingPath } from "@/types";
 import { useColoringContext } from "@/contexts/coloring";
 
 type ImageCanvasProps = {
-  coloringimage: ColoringImage;
+  coloringImage: ColoringImage;
+  style?: Record<string, unknown>;
 };
 
-const ImageCanvas = ({ coloringimage }: ImageCanvasProps) => {
+const ImageCanvas = ({ coloringImage, style }: ImageCanvasProps) => {
   const canvasRef = useCanvasRef();
   const { selectedColor } = useColoringContext();
   const [paths, setPaths] = useState<DrawingPath[]>([]);
   const [currentPath, setCurrentPath] = useState<SkPath | null>(null);
   const { width: screenWidth } = useWindowDimensions();
-  const svg = useSVG(coloringimage.svgUrl);
+  const svg = useSVG(coloringImage.svgUrl);
 
   const [svgDimensions, setSvgDimensions] = useState<Dimension | null>(null);
 
@@ -90,6 +91,7 @@ const ImageCanvas = ({ coloringimage }: ImageCanvasProps) => {
       style={tw.style(`bg-white rounded-lg shadow-lg`, {
         height: canvasSizeWithPadding,
         width: canvasSizeWithPadding,
+        ...style,
       })}
       {...panResponder.panHandlers}
     >
