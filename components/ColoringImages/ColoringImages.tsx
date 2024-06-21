@@ -1,4 +1,4 @@
-import { Text, View, Dimensions } from "react-native";
+import { Text, View, Dimensions, Pressable } from "react-native";
 import { Link } from "expo-router";
 import { SvgUri } from "react-native-svg";
 import { FlashList } from "@shopify/flash-list";
@@ -39,23 +39,26 @@ const ColoringImages = () => {
       style={tw.style(`flex-1`, {
         marginBottom: padding,
       })}
+      asChild
     >
-      <View
-        style={tw.style(
-          `bg-white rounded-lg shadow-lg justify-center items-center`,
-          {
-            width: squareSize,
-            height: squareSize,
-          },
-        )}
-      >
-        <SvgUri
-          width={squareSize}
-          height={squareSize}
-          uri={svgUri}
-          viewBox="0 0 1024 1024"
-        />
-      </View>
+      <Pressable>
+        <View
+          style={tw.style(
+            `bg-white rounded-lg shadow-lg justify-center items-center`,
+            {
+              width: squareSize,
+              height: squareSize,
+            },
+          )}
+        >
+          <SvgUri
+            width={squareSize}
+            height={squareSize}
+            uri={svgUri}
+            viewBox="0 0 1024 1024"
+          />
+        </View>
+      </Pressable>
     </Link>
   );
 

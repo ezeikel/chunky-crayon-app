@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 import tw from "twrnc";
 import ColorPalette from "@/components/ColorPalette/ColorPalette";
 import ImageCanvas from "@/components/ImageCanvas/ImageCanvas";
@@ -22,6 +22,12 @@ const ColoringImage = () => {
 
   return (
     <View style={tw.style(`flex-1 h-full p-2 bg-[#FF8A65]`)}>
+      <Stack.Screen
+        options={{
+          title: coloringImage.title,
+          headerBackTitleVisible: false,
+        }}
+      />
       <View style={tw.style(`flex-1 items-center justify-center`)}>
         <View style={tw`flex-none mb-8`}>
           <Text style={tw`text-3xl font-bold text-white text-center`}>
