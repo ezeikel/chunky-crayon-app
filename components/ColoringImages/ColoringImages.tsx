@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
 import { Text, View, Dimensions, Pressable } from "react-native";
-import { Link } from "expo-router";
 import { SvgUri } from "react-native-svg";
+import { Link } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
 import tw from "twrnc";
 import useColoringImages from "@/hooks/api/useColoringImages";
@@ -15,15 +16,38 @@ const getNumColumns = (width: number) => {
   }
 };
 
-const screenWidth = Dimensions.get("window").width;
+const getSquareSize = (
+  width: number,
+  padding: number,
+  gridGap: number,
+  numColumns: number,
+) => {
+  return (width - padding * 2 - gridGap * (numColumns - 1)) / numColumns;
+};
+
 const padding = 20;
-const numColumns = getNumColumns(screenWidth);
 const gridGap = 20;
-const squareSize =
-  (screenWidth - padding * 2 - gridGap * (numColumns - 1)) / numColumns;
 
 const ColoringImages = () => {
+  const [screenWidth, setScreenWidth] = useState(
+    Dimensions.get("window").width,
+  );
   const { data: { coloringImages } = {}, isLoading } = useColoringImages();
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      setScreenWidth(Dimensions.get("window").width);
+    };
+
+    const subscription = Dimensions.addEventListener(
+      "change",
+      updateDimensions,
+    );
+    return () => subscription?.remove();
+  }, []);
+
+  const numColumns = getNumColumns(screenWidth);
+  const squareSize = getSquareSize(screenWidth, padding, gridGap, numColumns);
 
   if (isLoading) {
     return <Text>Loading...</Text>;
