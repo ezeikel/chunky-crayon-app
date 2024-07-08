@@ -1,4 +1,4 @@
-export const API_BASE_URL = "https://chunkycrayon.com/api";
+export const API_BASE_URL = "https://www.chunkycrayon.com/api";
 
 export const COLORS = [
   "#FF0000",

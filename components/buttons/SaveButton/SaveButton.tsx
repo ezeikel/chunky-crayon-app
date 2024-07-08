@@ -1,6 +1,7 @@
-import { Button } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
+import tw from "twrnc";
 import { ColoringImage } from "@/types";
 
 type SaveButtonProps = {
@@ -80,7 +81,14 @@ const SaveButton = ({ coloringImage }: SaveButtonProps) => {
     }
   };
 
-  return <Button title="Create PDF" onPress={createPDF} />;
+  return (
+    <TouchableOpacity
+      onPress={createPDF}
+      style={tw`self-center items-center justify-center gap-x-4 text-black font-semibold p-4 rounded-lg shadow-lg bg-white`}
+    >
+      <Text>Download PDF</Text>
+    </TouchableOpacity>
+  );
 };
 
 export default SaveButton;
