@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import {
   GestureResponderEvent,
   PanResponder,
@@ -23,10 +23,11 @@ import { useColoringContext } from "@/contexts/coloring";
 
 type ImageCanvasProps = {
   coloringImage: ColoringImage;
+  setScroll: Dispatch<SetStateAction<boolean>>;
   style?: Record<string, unknown>;
 };
 
-const ImageCanvas = ({ coloringImage, style }: ImageCanvasProps) => {
+const ImageCanvas = ({ coloringImage, setScroll, style }: ImageCanvasProps) => {
   const canvasRef = useCanvasRef();
   const { selectedColor } = useColoringContext();
   const [paths, setPaths] = useState<DrawingPath[]>([]);
@@ -65,7 +66,12 @@ const ImageCanvas = ({ coloringImage, style }: ImageCanvasProps) => {
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
+    onStartShouldSetPanResponderCapture: () => true,
+    onMoveShouldSetPanResponder: () => true,
+    onMoveShouldSetPanResponderCapture: () => true,
     onPanResponderGrant: (event) => {
+      setScroll(false);
+
       const touchX = event.nativeEvent.locationX;
       const touchY = event.nativeEvent.locationY;
       const newPath = Skia.Path.Make();
@@ -78,6 +84,8 @@ const ImageCanvas = ({ coloringImage, style }: ImageCanvasProps) => {
         setPaths([...paths, { path: currentPath, color: selectedColor }]);
         setCurrentPath(null);
       }
+
+      setScroll(true);
     },
   });
 
