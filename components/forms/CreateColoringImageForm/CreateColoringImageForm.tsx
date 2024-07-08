@@ -1,4 +1,3 @@
-import React from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { router } from "expo-router";
 import { Formik } from "formik";
@@ -7,6 +6,7 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import tw from "twrnc";
 import { queryClient } from "@/providers";
 import { createColoringImage } from "@/api";
+import Spinner from "@/components/Spinner/Spinner";
 
 const createColoringImageSchema = z.object({
   description: z.string().nonempty({ message: "Description is required" }),
@@ -41,14 +41,13 @@ const CreateColoringImageForm = () => (
           numberOfLines={4}
         />
         <TouchableOpacity
-          style={tw`text-white text-lg bg-[#FF8A65] focus:outline-none focus:ring-2 focus:ring-[#FF8A65] focus:ring-offset-2 p-4 rounded-md mt-4`}
+          style={tw`flex-row gap-x-2 justify-center text-white text-lg bg-[#FF8A65] focus:outline-none focus:ring-2 focus:ring-[#FF8A65] focus:ring-offset-2 p-4 rounded-md mt-4`}
           onPress={handleSubmit}
         >
           <Text style={tw`text-white text-center`}>
-            {isSubmitting
-              ? "Generating coloring image"
-              : "Generate coloring image"}
+            Generate coloring image
           </Text>
+          {isSubmitting ? <Spinner /> : null}
         </TouchableOpacity>
       </View>
     )}

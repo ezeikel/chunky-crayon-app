@@ -4,6 +4,7 @@ import {
   createContext,
   useContext,
   useState,
+  ReactNode,
 } from "react";
 
 type ColoringContextArgs = {
@@ -12,7 +13,7 @@ type ColoringContextArgs = {
 };
 
 type ColoringContextProviderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export const ColoringContext = createContext<ColoringContextArgs>({
