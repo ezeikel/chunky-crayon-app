@@ -2,6 +2,8 @@ import { Text, TouchableOpacity } from "react-native";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
 import tw from "twrnc";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faFileArrowDown } from "@fortawesome/pro-regular-svg-icons";
 import { ColoringImage } from "@/types";
 
 type SaveButtonProps = {
@@ -84,9 +86,14 @@ const SaveButton = ({ coloringImage }: SaveButtonProps) => {
   return (
     <TouchableOpacity
       onPress={createPDF}
-      style={tw`self-center items-center justify-center gap-x-4 text-black font-semibold p-4 rounded-lg shadow-lg bg-white`}
+      style={tw`flex-row self-center items-center justify-center gap-x-4 text-black font-semibold p-4 rounded-lg shadow-lg bg-white`}
     >
       <Text>Download PDF</Text>
+      <FontAwesomeIcon
+        icon={faFileArrowDown}
+        size={20}
+        style={tw`text-3xl text-black`}
+      />
     </TouchableOpacity>
   );
 };

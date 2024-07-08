@@ -37,6 +37,8 @@ const CreateColoringImageForm = () => (
           onBlur={handleBlur("description")}
           value={values.description}
           placeholder="e.g. a dragon flying around New York City"
+          multiline
+          numberOfLines={4}
         />
         <TouchableOpacity
           style={tw`text-white text-lg bg-[#FF8A65] focus:outline-none focus:ring-2 focus:ring-[#FF8A65] focus:ring-offset-2 p-4 rounded-md mt-4`}
