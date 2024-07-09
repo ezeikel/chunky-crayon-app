@@ -7,11 +7,16 @@ import Animated, {
   withRepeat,
   withTiming,
 } from "react-native-reanimated";
+import tw from "twrnc";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faSpinnerThird } from "@fortawesome/pro-regular-svg-icons";
-import tw from "twrnc";
 
-const Spinner = () => {
+type SpinnerProps = {
+  style?: Record<string, unknown>;
+  size?: number;
+};
+
+const Spinner = ({ style, size }: SpinnerProps) => {
   const rotation = useSharedValue(0);
 
   useEffect(() => {
@@ -23,7 +28,7 @@ const Spinner = () => {
       -1, // -1 means the animation will repeat infinitely
       false, // If true, the animation will reverse on every repetition
     );
-  }, []);
+  }, [rotation]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -32,11 +37,14 @@ const Spinner = () => {
   });
 
   return (
-    <View style={tw`justify-content items-center`}>
+    <View style={tw`justify-center items-center`}>
       <Animated.View style={animatedStyle}>
         <FontAwesomeIcon
           icon={faSpinnerThird}
-          style={tw`text-white text-lg animate-spin`}
+          style={tw.style(`text-[#FF8A65]`, {
+            ...style,
+          })}
+          size={size || 48}
         />
       </Animated.View>
     </View>

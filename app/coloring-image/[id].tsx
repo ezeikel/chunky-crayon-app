@@ -6,6 +6,7 @@ import ColorPalette from "@/components/ColorPalette/ColorPalette";
 import ImageCanvas from "@/components/ImageCanvas/ImageCanvas";
 import useColoringImage from "@/hooks/api/useColoringImage";
 import SaveButton from "@/components/buttons/SaveButton/SaveButton";
+import Loading from "../Loading/Loading";
 
 const ColoringImage = () => {
   const { id } = useLocalSearchParams();
@@ -13,7 +14,7 @@ const ColoringImage = () => {
   const [scroll, setScroll] = useState(true);
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <Loading style={tw`bg-[#FF8A65]`} spinnerStyle={tw`text-white`} />;
   }
 
   if (!data) {

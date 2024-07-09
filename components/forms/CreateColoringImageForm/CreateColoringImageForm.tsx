@@ -47,7 +47,7 @@ const CreateColoringImageForm = () => (
           <Text style={tw`text-white text-center`}>
             Generate coloring image
           </Text>
-          {isSubmitting ? <Spinner /> : null}
+          {isSubmitting ? <Spinner style={tw`text-white`} size={16} /> : null}
         </TouchableOpacity>
       </View>
     )}

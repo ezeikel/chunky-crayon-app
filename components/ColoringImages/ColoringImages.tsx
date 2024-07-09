@@ -5,6 +5,7 @@ import { Link } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
 import tw from "twrnc";
 import useColoringImages from "@/hooks/api/useColoringImages";
+import Loading from "@/app/Loading/Loading";
 
 const getNumColumns = (width: number) => {
   if (width >= 768) {
@@ -50,7 +51,7 @@ const ColoringImages = () => {
   const squareSize = getSquareSize(screenWidth, padding, gridGap, numColumns);
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <Loading />;
   }
 
   if (!coloringImages) {
