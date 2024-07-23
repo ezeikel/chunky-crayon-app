@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FFF2E6"
     },
     "ios": {
       "supportsTablet": true,
@@ -19,7 +19,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#FFF2E6"
       },
       "package": "com.ezeikel.chunkycrayon"
     },
@@ -36,6 +36,28 @@
           "url": "https://sentry.io/",
           "project": "chunky-crayon-app",
           "organization": "ezeikel"
+        }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/RooneySans-Black-Italic.ttf",
+            "./assets/fonts/RooneySans-Black.ttf",
+            "./assets/fonts/RooneySans-Bold-Italic.ttf",
+            "./assets/fonts/RooneySans-Bold.ttf",
+            "./assets/fonts/RooneySans-Heavy-Italic.ttf",
+            "./assets/fonts/RooneySans-Heavy.ttf",
+            "./assets/fonts/RooneySans-Light-Italic.ttf",
+            "./assets/fonts/RooneySans-Light.ttf",
+            "./assets/fonts/RooneySans-Medium-Italic.ttf",
+            "./assets/fonts/RooneySans-Medium.ttf",
+            "./assets/fonts/RooneySans-Regular-Italic.ttf",
+            "./assets/fonts/RooneySans-Regular.ttf",
+            "./assets/fonts/TondoTrial-Bold.ttf",
+            "./assets/fonts/TondoTrial-Light.ttf",
+            "./assets/fonts/TondoTrial-Regular.ttf"
+          ]
         }
       ]
     ],

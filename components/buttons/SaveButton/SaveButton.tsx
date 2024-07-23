@@ -5,6 +5,7 @@ import tw from "twrnc";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faFileArrowDown } from "@fortawesome/pro-regular-svg-icons";
 import { ColoringImage } from "@/types";
+import { perfect } from "@/styles";
 
 type SaveButtonProps = {
   coloringImage: ColoringImage;
@@ -86,9 +87,20 @@ const SaveButton = ({ coloringImage }: SaveButtonProps) => {
   return (
     <TouchableOpacity
       onPress={createPDF}
-      style={tw`flex-row self-center items-center justify-center gap-x-4 text-black font-semibold p-4 rounded-lg shadow-lg bg-white`}
+      style={tw.style(
+        `flex-row self-center items-center justify-center gap-x-4 text-black font-semibold p-4 rounded-lg bg-white`,
+        {
+          ...perfect.boxShadow,
+        },
+      )}
     >
-      <Text>Download PDF</Text>
+      <Text
+        style={tw.style({
+          fontFamily: "TondoTrial-Regular",
+        })}
+      >
+        Download PDF
+      </Text>
       <FontAwesomeIcon
         icon={faFileArrowDown}
         size={20}

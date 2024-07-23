@@ -1,11 +1,19 @@
-import { useEffect, useState } from "react";
-import { Text, View, Dimensions, Pressable } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import {
+  Text,
+  View,
+  Dimensions,
+  Pressable,
+  RefreshControl,
+} from "react-native";
 import { SvgUri } from "react-native-svg";
 import { Link } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
 import tw from "twrnc";
 import useColoringImages from "@/hooks/api/useColoringImages";
 import Loading from "@/app/Loading/Loading";
+import { perfect } from "@/styles";
+import Spinner from "../Spinner/Spinner";
 
 const getNumColumns = (width: number) => {
   if (width >= 768) {
@@ -33,7 +41,21 @@ const ColoringImages = () => {
   const [screenWidth, setScreenWidth] = useState(
     Dimensions.get("window").width,
   );
-  const { data: { coloringImages } = {}, isLoading } = useColoringImages();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const {
+    data: { coloringImages } = {},
+    isLoading,
+    refetch,
+  } = useColoringImages();
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+
+    await refetch();
+
+    setRefreshing(false);
+  }, []);
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -77,7 +99,10 @@ const ColoringImages = () => {
       <Pressable style={tw`flex-1`}>
         <View
           style={tw.style(
-            `bg-white rounded-lg shadow-lg justify-center items-center flex-1`,
+            `bg-white rounded-lg justify-center items-center flex-1`,
+            {
+              ...perfect.boxShadow,
+            },
           )}
         >
           <SvgUri
@@ -113,6 +138,16 @@ const ColoringImages = () => {
           />
         );
       }}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          tintColor="transparent" // Hides the default spinner
+          style={tw`justify-center items-center`}
+        >
+          {refreshing ? <Spinner style={tw`my-4`} /> : null}
+        </RefreshControl>
+      }
       keyExtractor={(item) => item.id.toString()}
       numColumns={numColumns}
       estimatedItemSize={squareSize + padding}

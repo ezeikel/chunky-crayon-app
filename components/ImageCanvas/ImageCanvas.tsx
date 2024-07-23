@@ -20,6 +20,7 @@ import {
 import tw from "twrnc";
 import { ColoringImage, Dimension, DrawingPath } from "@/types";
 import { useColoringContext } from "@/contexts/coloring";
+import { perfect } from "@/styles";
 
 type ImageCanvasProps = {
   coloringImage: ColoringImage;
@@ -96,9 +97,10 @@ const ImageCanvas = ({ coloringImage, setScroll, style }: ImageCanvasProps) => {
 
   return (
     <View
-      style={tw.style(`bg-white rounded-lg shadow-lg`, {
+      style={tw.style(`bg-white rounded-lg`, {
         height: canvasSizeWithPadding,
         width: canvasSizeWithPadding,
+        ...perfect.boxShadow,
         ...style,
       })}
       {...panResponder.panHandlers}

@@ -36,10 +36,18 @@ const ColoringImage = () => {
         scrollEnabled={scroll}
       >
         <View style={tw`w-full mb-8`}>
-          <Text style={tw`text-3xl font-bold text-white text-center`}>
+          <Text
+            style={tw.style(`text-3xl font-bold text-white text-center`, {
+              fontFamily: "TondoTrial-Bold",
+            })}
+          >
             {coloringImage.title}
           </Text>
-          <Text style={tw`text-base text-white text-center`}>
+          <Text
+            style={tw.style(`text-base text-white text-center`, {
+              fontFamily: "RooneySans-Regular",
+            })}
+          >
             by Chunky Crayon
           </Text>
         </View>
