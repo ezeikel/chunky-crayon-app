@@ -22,9 +22,11 @@ const RootLayout = () => {
         />
         <Stack.Screen
           name="coloring-image/[id]"
-          options={{
-            headerBackTitleVisible: false,
-          }}
+          options={
+            {
+              // headerBackTitleVisible: false,
+            }
+          }
         />
       </Stack>
     </Providers>

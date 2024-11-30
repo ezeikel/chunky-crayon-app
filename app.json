@@ -2,11 +2,13 @@
   "expo": {
     "name": "Chunky Crayon - Creative Coloring & Learning Fun",
     "slug": "chunky-crayon",
+    "owner": "chewybytes",
     "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -14,14 +16,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.ezeikel.chunkycrayon"
+      "bundleIdentifier": "com.chewybytes.chunkycrayon"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFF2E6"
       },
-      "package": "com.ezeikel.chunkycrayon"
+      "package": "com.chewybytes.chunkycrayon"
     },
     "web": {
       "bundler": "metro",
@@ -35,7 +37,7 @@
         {
           "url": "https://sentry.io/",
           "project": "chunky-crayon-app",
-          "organization": "ezeikel"
+          "organization": "chewybytes"
         }
       ],
       [
@@ -64,12 +66,6 @@
     "experiments": {
       "typedRoutes": true
     },
-    "extra": {
-      "eas": {
-        "projectId": "b57fff00-94cc-43fb-9224-924e34d301c9"
-      }
-    },
-    "owner": "ezeikel",
     "updates": {
       "url": "https://u.expo.dev/b57fff00-94cc-43fb-9224-924e34d301c9"
     },

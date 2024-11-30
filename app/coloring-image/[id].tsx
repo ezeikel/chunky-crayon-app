@@ -6,7 +6,7 @@ import ColorPalette from "@/components/ColorPalette/ColorPalette";
 import ImageCanvas from "@/components/ImageCanvas/ImageCanvas";
 import useColoringImage from "@/hooks/api/useColoringImage";
 import SaveButton from "@/components/buttons/SaveButton/SaveButton";
-import Loading from "../Loading/Loading";
+import Loading from "@/components/Loading/Loading";
 
 const ColoringImage = () => {
   const { id } = useLocalSearchParams();
@@ -28,7 +28,7 @@ const ColoringImage = () => {
       <Stack.Screen
         options={{
           title: coloringImage.title,
-          headerBackTitleVisible: false,
+          // headerBackTitleVisible: false,
         }}
       />
       <ScrollView

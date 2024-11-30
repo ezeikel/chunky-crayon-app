@@ -11,7 +11,7 @@ import { Link } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
 import tw from "twrnc";
 import useColoringImages from "@/hooks/api/useColoringImages";
-import Loading from "@/app/Loading/Loading";
+import Loading from "@/components/Loading/Loading";
 import { perfect } from "@/styles";
 import Spinner from "../Spinner/Spinner";
 
