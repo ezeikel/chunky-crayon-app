@@ -59,8 +59,23 @@ const ImageCanvas = ({ coloringImage, setScroll, style }: ImageCanvasProps) => {
   const handlePanResponderMove = (event: GestureResponderEvent) => {
     const touchX = event.nativeEvent.locationX;
     const touchY = event.nativeEvent.locationY;
-    if (currentPath) {
-      currentPath.lineTo(touchX, touchY);
+    if (currentPath && svgDimensions) {
+      // calculate the scale factor from fitbox "contain"
+      const scaleX = canvasSize / svgDimensions.width;
+      const scaleY = canvasSize / svgDimensions.height;
+      const scale = Math.min(scaleX, scaleY);
+
+      // calculate offset to center the scaled SVG
+      const scaledWidth = svgDimensions.width * scale;
+      const scaledHeight = svgDimensions.height * scale;
+      const offsetX = (canvasSize - scaledWidth) / 2;
+      const offsetY = (canvasSize - scaledHeight) / 2;
+
+      // transform touch coordinates to SVG coordinates
+      const svgX = (touchX - offsetX) / scale;
+      const svgY = (touchY - offsetY) / scale;
+
+      currentPath.lineTo(svgX, svgY);
       setCurrentPath(currentPath.copy());
     }
   };
@@ -75,9 +90,26 @@ const ImageCanvas = ({ coloringImage, setScroll, style }: ImageCanvasProps) => {
 
       const touchX = event.nativeEvent.locationX;
       const touchY = event.nativeEvent.locationY;
-      const newPath = Skia.Path.Make();
-      newPath.moveTo(touchX, touchY);
-      setCurrentPath(newPath);
+      if (svgDimensions) {
+        // calculate the scale factor from fitbox "contain"
+        const scaleX = canvasSize / svgDimensions.width;
+        const scaleY = canvasSize / svgDimensions.height;
+        const scale = Math.min(scaleX, scaleY);
+
+        // calculate offset to center the scaled SVG
+        const scaledWidth = svgDimensions.width * scale;
+        const scaledHeight = svgDimensions.height * scale;
+        const offsetX = (canvasSize - scaledWidth) / 2;
+        const offsetY = (canvasSize - scaledHeight) / 2;
+
+        // transform touch coordinates to SVG coordinates
+        const svgX = (touchX - offsetX) / scale;
+        const svgY = (touchY - offsetY) / scale;
+
+        const newPath = Skia.Path.Make();
+        newPath.moveTo(svgX, svgY);
+        setCurrentPath(newPath);
+      }
     },
     onPanResponderMove: (event) => handlePanResponderMove(event),
     onPanResponderRelease: () => {
@@ -114,34 +146,7 @@ const ImageCanvas = ({ coloringImage, setScroll, style }: ImageCanvasProps) => {
           })}
         >
           {/* render SVG once to be below the colored paths */}
-          <Group
-            transform={transform}
-            layer={
-              <>
-                {paths.map((drawingPath, index) => (
-                  <Path
-                    key={index}
-                    path={drawingPath.path}
-                    color={drawingPath.color}
-                    style="stroke"
-                    strokeWidth={5}
-                    strokeCap="round"
-                    strokeJoin="round"
-                  />
-                ))}
-                {currentPath ? (
-                  <Path
-                    path={currentPath}
-                    color={selectedColor}
-                    style="stroke"
-                    strokeWidth={5}
-                    strokeCap="round"
-                    strokeJoin="round"
-                  />
-                ) : null}
-              </>
-            }
-          >
+          <Group transform={transform}>
             <ImageSVG
               x={0}
               y={0}
@@ -149,6 +154,27 @@ const ImageCanvas = ({ coloringImage, setScroll, style }: ImageCanvasProps) => {
               height={canvasSize}
               svg={svg}
             />
+            {paths.map((drawingPath, index) => (
+              <Path
+                key={index}
+                path={drawingPath.path}
+                color={drawingPath.color}
+                style="stroke"
+                strokeWidth={5}
+                strokeCap="round"
+                strokeJoin="round"
+              />
+            ))}
+            {currentPath ? (
+              <Path
+                path={currentPath}
+                color={selectedColor}
+                style="stroke"
+                strokeWidth={5}
+                strokeCap="round"
+                strokeJoin="round"
+              />
+            ) : null}
           </Group>
           {/* render SVG again to be on top of the colored paths */}
           <Group transform={transform}>

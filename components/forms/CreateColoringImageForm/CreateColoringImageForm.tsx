@@ -55,7 +55,7 @@ const CreateColoringImageForm = () => (
               ...perfect.boxShadow,
             },
           )}
-          onPress={handleSubmit}
+          onPress={() => handleSubmit()}
         >
           <Text
             style={tw.style(`text-white text-center`, {

@@ -46,3 +46,8 @@ ios/
 android/
 
 .cursor/
+
+*.zip
+
+*.apk
+*.ipa

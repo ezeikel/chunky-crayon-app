@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+import { useFonts } from 'expo-font';
 import * as Sentry from "@sentry/react-native";
 import Providers from "@/providers";
 Sentry.init({
@@ -8,9 +9,35 @@ Sentry.init({
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
   tracesSampleRate: 1.0,
+  sendDefaultPii: true,
 });
 
 const RootLayout = () => {
+
+
+  const [loaded] = useFonts({
+    'RooneySans-Black-Italic': require('../assets/fonts/RooneySans-Black-Italic.ttf'),
+    'RooneySans-Black': require('../assets/fonts/RooneySans-Black.ttf'),
+    'RooneySans-Bold-Italic': require('../assets/fonts/RooneySans-Bold-Italic.ttf'),
+    'RooneySans-Bold': require('../assets/fonts/RooneySans-Bold.ttf'),
+    'RooneySans-Heavy-Italic': require('../assets/fonts/RooneySans-Heavy-Italic.ttf'),
+    'RooneySans-Heavy': require('../assets/fonts/RooneySans-Heavy.ttf'),
+    'RooneySans-Light-Italic': require('../assets/fonts/RooneySans-Light-Italic.ttf'),
+    'RooneySans-Light': require('../assets/fonts/RooneySans-Light.ttf'),
+    'RooneySans-Medium-Italic': require('../assets/fonts/RooneySans-Medium-Italic.ttf'),
+    'RooneySans-Medium': require('../assets/fonts/RooneySans-Medium.ttf'),
+    'RooneySans-Regular-Italic': require('../assets/fonts/RooneySans-Regular-Italic.ttf'),
+    'RooneySans-Regular': require('../assets/fonts/RooneySans-Regular.ttf'),
+    'TondoTrial-Bold': require('../assets/fonts/TondoTrial-Bold.ttf'),
+    'TondoTrial-Light': require('../assets/fonts/TondoTrial-Light.ttf'),
+    'TondoTrial-Regular': require('../assets/fonts/TondoTrial-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
+
   return (
     <Providers>
       <Stack>

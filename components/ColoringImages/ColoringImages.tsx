@@ -85,7 +85,7 @@ const ColoringImages = () => {
     svgUri,
     style,
   }: {
-    path: string;
+    path: `/coloring-image/${string}`;
     svgUri: string;
     style?: Record<string, unknown>;
   }) => (

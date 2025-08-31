@@ -1,6 +1,6 @@
 import { Pressable, View } from "react-native";
 import tw from "twrnc";
-import { COLORS } from "@/constants";
+import { PALETTE_COLORS } from "@/constants/Colors";
 import { useColoringContext } from "@/contexts/coloring";
 import { perfect } from "@/styles";
 
@@ -21,7 +21,7 @@ const ColorPalette = ({ style }: ColorPaletteProps) => {
         },
       )}
     >
-      {COLORS.map((color) => (
+      {PALETTE_COLORS.map((color) => (
         <Pressable onPress={() => setSelectedColor(color)} key={color}>
           <View
             style={tw.style("h-8 w-8 rounded-full", {
